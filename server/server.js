@@ -15,11 +15,9 @@ app.use(cors({
 }));
 app.use(express.json()); // allows JSON parsing
 
-// Import routes
-const authRoutes = require('./routes/authRoutes');
-
-// Mount routes under /api prefix
-app.use('/api', authRoutes);
+// Mount routes 
+app.use('/api', require('./routes/authRoutes'));
+app.use('/api', require('./routes/contactRoutes'));
 
 // Default route
 app.get('/', (req, res) => {

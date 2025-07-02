@@ -1,77 +1,21 @@
-import { useState } from 'react';
-import ContactForm from './ContactForm';
+import { Routes, Route } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import LoginPage from './pages/LoginPage';
+import ContactPage from './pages/ContactPage';
 
 function App() {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
   const [token, setToken] = useState('');
-  const [message, setMessage] = useState('');
 
-  const handleLogin = async () => {
-    try {
-      const res = await fetch('http://localhost:5000/api/login', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ username, password })
-      });
-
-      const data = await res.json();
-
-      if (res.ok) {
-        setToken(data.token);
-        setMessage('Login successful!');
-      } else {
-        setMessage(data.message || 'Login failed');
-      }
-    } catch (err) {
-      console.error(err);
-      setMessage('An error occurred');
-    }
-  };
-
-  const getProtectedMessage = async () => {
-    try {
-      const res = await fetch('http://localhost:5000/api/messages', {
-        headers: {
-          Authorization: `Bearer ${token}`
-        }
-      });
-
-      const data = await res.json();
-
-      if (res.ok) {
-        setMessage(data.message + ` (user: ${data.user.username})`);
-      } else {
-        setMessage(data.message || 'Could not fetch message');
-      }
-    } catch (err) {
-      console.error(err);
-      setMessage('An error occurred');
-    }
-  };
+  useEffect(() => {
+    const saved = localStorage.getItem('token');
+    if (saved) setToken(saved);
+  }, []);
 
   return (
-    <div style={{ padding: '2rem' }}>
-      <h1>Login</h1>
-      <input
-        type="text"
-        placeholder="Username"
-        value={username}
-        onChange={e => setUsername(e.target.value)}
-      /><br />
-      <input
-        type="password"
-        placeholder="Password"
-        value={password}
-        onChange={e => setPassword(e.target.value)}
-      /><br />
-      <button onClick={handleLogin}>Login</button>
-      <button onClick={getProtectedMessage} disabled={!token}>
-        Get Protected Message
-      </button>
-      <p>{message}</p>
-      <ContactForm token={token} />
-    </div>
+    <Routes>
+      <Route path="/" element={<LoginPage setToken={setToken} />} />
+      <Route path="/contact" element={<ContactPage token={token} setToken={setToken} />} />
+    </Routes>
   );
 }
 

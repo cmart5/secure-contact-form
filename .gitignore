@@ -1,0 +1,35 @@
+# Ignore Node dependencies
+node_modules/
+
+# Ignore environment variables
+.env
+
+# Vite output
+client/dist/
+
+# Ignore build artifacts
+dist/
+
+# Ignore logs
+*.log
+
+# Ignore coverage reports
+coverage/
+
+# Ignore IDE/editor specific files
+.vscode/
+
+# Ignore OS generated files
+.DS_Store
+
+# Ignore temporary files
+*.tmp
+
+# Ignore test files
+*.test.js
+
+# Ignore build directories
+build/
+
+# Ignore package lock files
+package-lock.json

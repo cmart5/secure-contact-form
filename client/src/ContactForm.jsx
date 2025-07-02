@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-function ContactForm() {
+function ContactForm({ token }) {
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [message, setMessage] = useState('');
@@ -10,6 +10,7 @@ function ContactForm() {
         e.preventDefault(); // Prevent page reload
         console.log('Sending Form...');
         console.log({name, email, message});
+        console.log('Sending token:', token);
 
         const contactData = {
             name,
@@ -22,7 +23,7 @@ function ContactForm() {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
-                    'Authorization': 'Bearer $(token)'
+                    'Authorization': `Bearer ${token}`,
                 },
                 body: JSON.stringify(contactData)
             });

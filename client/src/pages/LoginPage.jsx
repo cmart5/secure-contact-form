@@ -1,8 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-function LoginPage({ setToken }) {
-  const [username, setUsername] = useState('');
+function LoginPage({ setToken, setUsername, username }) {
   const [password, setPassword] = useState('');
   const [message, setMessage] = useState('');
   const navigate = useNavigate();
@@ -18,7 +17,9 @@ function LoginPage({ setToken }) {
       const data = await res.json();
       if (res.ok) {
         setToken(data.token);
+        setUsername(username);
         localStorage.setItem('token', data.token);
+        localStorage.setItem('username', username);
         setMessage('Login successful!');
         navigate('/contact');
       } else {

@@ -1,18 +1,19 @@
 import ContactForm from '../ContactForm';
 import { useNavigate } from 'react-router-dom';
 
-function ContactPage({ token, setToken }) {
+function ContactPage({ token, setToken, username }) {
   const navigate = useNavigate();
 
   const handleLogout = () => {
     setToken('');
+    localStorage.removeItem('username');
     localStorage.removeItem('token');
     navigate('/');
   };
 
   return (
     <div style={styles.box}>
-      <h2>Contact Us</h2>
+      <h2>Logged in: {username}</h2>
       <ContactForm token={token} />
       <button onClick={handleLogout}>Logout</button>
     </div>

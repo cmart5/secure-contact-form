@@ -2,9 +2,13 @@ const express = require('express');
 const router = express.Router();
 const jwt = require('jsonwebtoken');
 
+const users = [
+  { username: 'admin', password: 'password123' }
+]
 // Hardcoded admin credentials (TEMP)
 const ADMIN_USERNAME = 'admin';
 const ADMIN_PASSWORD = 'password123';
+
 
 // POST /api/login
 router.post('/login', (req, res) => {
@@ -22,11 +26,6 @@ router.post('/login', (req, res) => {
   );
 
   res.json({ token });
-});
-
-// Test route to verify server is running
-router.get('/test', (req, res) => {
-  res.send('Test route is working!');
 });
 
 module.exports = router;

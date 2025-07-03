@@ -44,4 +44,9 @@ router.get('/messages', authenticateToken, (req, res) => {
   });
 });
 
+// Test route to verify server is running
+router.get('/test', (req, res) => {
+  res.send('Test route is working!');
+});
+
 module.exports = router;
